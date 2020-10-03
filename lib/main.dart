@@ -49,6 +49,7 @@ class MyHomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 100.0, right: 100),
               child: TextField(
+                autofocus: true,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 30),
                 maxLength: 1,

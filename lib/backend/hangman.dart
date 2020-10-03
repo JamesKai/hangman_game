@@ -156,20 +156,24 @@ class Hangman with ChangeNotifier {
     notifyListeners();
   }
 
-  void showLoseDialog(
-    BuildContext context,
-  ) {
+  void showLoseDialog(BuildContext context) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('😢 You Lose'),
+        title: Text(
+          '😢 You Lose',
+          style: TextStyle(color: Colors.white),
+        ),
         content: LoseInfo(
           hangmanControl: this,
           withAns: false,
         ),
         actions: [
-          FlatButton(
-            child: Text('Try again'),
+          TextButton(
+            child: Text(
+              'Try Again',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
               Navigator.of(context).pop();
               _inputSet = Set();
@@ -183,14 +187,20 @@ class Hangman with ChangeNotifier {
               notifyListeners();
             },
           ),
-          FlatButton(
-            child: Text('Reveal Answer'),
+          TextButton(
+            child: Text(
+              'Reveal Answer',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
               showLoseDialogWithAns(context);
             },
           ),
-          FlatButton(
-            child: Text('Close'),
+          TextButton(
+            child: Text(
+              'Close',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
               Navigator.of(context).popUntil(ModalRoute.withName('game_page'));
               shuffle();
@@ -213,8 +223,11 @@ class Hangman with ChangeNotifier {
           withAns: true,
         ),
         actions: [
-          FlatButton(
-            child: Text('Close'),
+          TextButton(
+            child: Text(
+              'Close',
+              style: TextStyle(color: Colors.white),
+            ),
             onPressed: () {
               Navigator.popUntil(context, ModalRoute.withName('game_page'));
               shuffle();
@@ -234,7 +247,7 @@ class Hangman with ChangeNotifier {
                 hangmanControl: this,
               ),
               actions: <Widget>[
-                FlatButton(
+                TextButton(
                   child: Text('Close!'),
                   onPressed: () {
                     Navigator.of(context).pop();
