@@ -27,7 +27,6 @@ class WinInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       'Congrats, you are word masters to win the game',
-      textAlign: TextAlign.center,
       style: TextStyle(
           color: Colors.orangeAccent,
           fontSize: 20,
@@ -50,7 +49,6 @@ class LoseInfo extends StatelessWidget {
     if (!withAns) {
       return Text(
         'Sorry, you did not win the game. \n  ',
-        textAlign: TextAlign.center,
         style: TextStyle(
             color: Colors.orangeAccent,
             fontSize: 20,
@@ -60,7 +58,6 @@ class LoseInfo extends StatelessWidget {
     } else {
       return Text(
         'Sorry, you did not win the game. \nAnswer: ${hangmanControl.word}',
-        textAlign: TextAlign.center,
         style: TextStyle(
             color: Colors.orangeAccent,
             fontSize: 20,
