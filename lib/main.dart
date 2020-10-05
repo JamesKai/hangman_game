@@ -25,8 +25,7 @@ class MyApp extends StatelessWidget {
 }
 
 class MyHomePage extends StatelessWidget {
-  MyHomePage();
-
+  final FocusNode _charFocus = FocusNode();
   @override
   Widget build(BuildContext context) {
     var hangmanControl = Provider.of<Hangman>(context);
@@ -35,6 +34,7 @@ class MyHomePage extends StatelessWidget {
     );
     myTextController.selection = TextSelection.fromPosition(
         TextPosition(offset: myTextController.text.length));
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Hangman Game'),
@@ -49,13 +49,25 @@ class MyHomePage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.only(left: 100.0, right: 100),
               child: TextField(
-                autofocus: true,
+                focusNode: _charFocus,
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 30),
                 maxLength: 1,
                 controller: myTextController,
                 onChanged: (value) {
                   hangmanControl.input = value;
+                },
+                textInputAction: TextInputAction.done,
+                onSubmitted: (value) {
+                  hangmanControl.setWordRepre(hangmanControl.input);
+                  hangmanControl.input = '';
+                  if (hangmanControl.isWin()) {
+                    hangmanControl.showWinDialog(context, _charFocus);
+                  } else if (hangmanControl.isLose()) {
+                    hangmanControl.showLoseDialog(context, _charFocus);
+                  } else {
+                    _charFocus.requestFocus();
+                  }
                 },
               ),
             ),
@@ -68,9 +80,9 @@ class MyHomePage extends StatelessWidget {
                   hangmanControl.setWordRepre(hangmanControl.input);
                   hangmanControl.input = '';
                   if (hangmanControl.isWin()) {
-                    hangmanControl.showWinDialog(context);
+                    hangmanControl.showWinDialog(context, _charFocus);
                   } else if (hangmanControl.isLose()) {
-                    hangmanControl.showLoseDialog(context);
+                    hangmanControl.showLoseDialog(context, _charFocus);
                   }
                 }),
             Padding(
@@ -81,6 +93,7 @@ class MyHomePage extends StatelessWidget {
                   child: Text('New Game'),
                   onPressed: () {
                     hangmanControl.shuffle();
+                    _charFocus.unfocus();
                   }),
             ),
             Padding(

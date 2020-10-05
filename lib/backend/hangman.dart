@@ -14,6 +14,7 @@ class Hangman with ChangeNotifier {
   Set<String> _inputSet = Set();
   String _input = '';
   String _displayNote = 'go ahead';
+  bool tryAgain = false;
   int kHangmanQuota = 1;
 
   String get input => _input;
@@ -156,7 +157,7 @@ class Hangman with ChangeNotifier {
     notifyListeners();
   }
 
-  void showLoseDialog(BuildContext context) {
+  void showLoseDialog(BuildContext context, FocusNode node) {
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
@@ -181,6 +182,7 @@ class Hangman with ChangeNotifier {
               _incorrect = 0;
               _displayNote = 'go ahead';
               _wordRepre = '';
+              node.requestFocus();
               for (var i = 0; i < _word.length; i++) {
                 _wordRepre += ' ';
               }
@@ -193,7 +195,8 @@ class Hangman with ChangeNotifier {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              showLoseDialogWithAns(context);
+              showLoseDialogWithAns(context, node);
+              node.unfocus();
             },
           ),
           TextButton(
@@ -202,6 +205,8 @@ class Hangman with ChangeNotifier {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
+              node.unfocus();
+
               Navigator.of(context).popUntil(ModalRoute.withName('game_page'));
               shuffle();
             },
@@ -213,6 +218,7 @@ class Hangman with ChangeNotifier {
 
   void showLoseDialogWithAns(
     BuildContext context,
+    FocusNode node,
   ) {
     showDialog(
       context: context,
@@ -231,6 +237,7 @@ class Hangman with ChangeNotifier {
             onPressed: () {
               Navigator.popUntil(context, ModalRoute.withName('game_page'));
               shuffle();
+              node.unfocus();
             },
           ),
         ],
@@ -238,7 +245,7 @@ class Hangman with ChangeNotifier {
     );
   }
 
-  void showWinDialog(BuildContext context) {
+  void showWinDialog(BuildContext context, FocusNode node) {
     showDialog(
         context: context,
         builder: (_) => AlertDialog(
@@ -248,10 +255,14 @@ class Hangman with ChangeNotifier {
               ),
               actions: <Widget>[
                 TextButton(
-                  child: Text('Close!'),
+                  child: Text(
+                    'Close!',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   onPressed: () {
                     Navigator.of(context).pop();
                     shuffle();
+                    node.unfocus();
                   },
                 )
               ],
