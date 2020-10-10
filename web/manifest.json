@@ -1,6 +1,6 @@
 {
-    "name": "hangman_game",
-    "short_name": "hangman_game",
+    "name": "hangman_rebuild",
+    "short_name": "hangman_rebuild",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
