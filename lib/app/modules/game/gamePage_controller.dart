@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:hangman_rebuild/app/modules/game/game_model.dart';
 
@@ -7,6 +6,14 @@ int kHangmanQuota = 1;
 
 class GamePageController extends GetxController {
   GameModel gameModel;
+
+  @override
+  onInit() {
+    print('controller is open');
+    gameModel = GameModel();
+    print('Model initialized');
+    super.onInit();
+  }
 
   void shuffle() {
     gameModel.shuffle();
@@ -26,6 +33,12 @@ class GamePageController extends GetxController {
   void clearUp() {
     gameModel.resetState();
     update();
+  }
+
+  @override
+  void onClose() {
+    print('controller is closed');
+    super.onClose();
   }
 }
 

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
-import 'package:hangman_rebuild/app/modules/game/game_model.dart';
-import 'package:hangman_rebuild/app/modules/home/homePage_view.dart';
+
 import 'package:hangman_rebuild/util/components/character_card.dart';
 import 'package:hangman_rebuild/util/services/file_manager.dart';
 import 'gameDialog_view.dart';
@@ -37,9 +36,9 @@ class GamePageView extends GetView<GamePageController> {
               );
             }
 
-            print('this stage');
+            print('data loaded');
             // after retreiving data -> initialize controller's GameModel instance and set its wordSets property to the data
-            controller.gameModel = GameModel();
+
             controller.gameModel.wordSets = snapshot.data;
             controller.gameModel.shuffle();
             controller.gameModel.maxAttempCount = mode == 'Hard'
@@ -131,7 +130,7 @@ class GamePageView extends GetView<GamePageController> {
                           padding: const EdgeInsets.all(8.0),
                           child: GetBuilder<GamePageController>(
                             builder: (c) {
-                              return PlayInfo(hangmanControl: c);
+                              return PlayInfo();
                             },
                           )),
                     ),
@@ -140,8 +139,7 @@ class GamePageView extends GetView<GamePageController> {
                     builder: (c) {
                       return TextButton(
                           onPressed: () {
-                            c.clearUp();
-                            Get.close(1);
+                            Get.back();
                           },
                           child: Text('Go Back'));
                     },

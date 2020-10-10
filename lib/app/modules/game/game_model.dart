@@ -29,11 +29,13 @@ class GameModel {
   void shuffle() {
     resetState();
     selectWord();
+    print('start fresh: ' + word);
     wordRepre = ' ' * word.length;
   }
 
   void playAgain() {
     resetState();
+    print('re-try: ' + word);
     wordRepre = ' ' * word.length;
   }
 
@@ -44,9 +46,6 @@ class GameModel {
     doTryAgain = false;
     displayNote = 'Go ahead';
     wordRepre = ' ';
-    print('state is resetted' +
-        ' wordRepre = $wordRepre' +
-        ' current word = $word');
   }
 
   void setWordRepre(String input) {

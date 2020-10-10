@@ -13,6 +13,7 @@ class HomePageView extends GetView<HomePageController> {
       ),
       body: Center(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),

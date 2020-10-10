@@ -5,7 +5,7 @@ import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
 class GameDialogView {
   // remember to specify the controller type for the Get.find<[Type]> if there's
   // multiple controller in the bindings
-  static GamePageController controller = Get.find<GamePageController>();
+  // static GamePageController controller = Get.find<GamePageController>();
   static void showLoseDialog(BuildContext context, FocusNode node) {
     showDialog(
       context: context,
@@ -15,7 +15,6 @@ class GameDialogView {
           style: TextStyle(color: Colors.white),
         ),
         content: LoseInfo(
-          hangmanControl: GameDialogView.controller,
           withAns: false,
         ),
         actions: [
@@ -25,7 +24,7 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              GameDialogView.controller.playAgain();
+              Get.find<GamePageController>().playAgain();
               Get.back();
               node.requestFocus();
             },
@@ -46,7 +45,7 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              GameDialogView.controller.shuffle();
+              Get.find<GamePageController>().shuffle();
               Get.back();
               node.unfocus();
             },
@@ -62,7 +61,6 @@ class GameDialogView {
       builder: (context) => AlertDialog(
         title: Text('😢 You Lose'),
         content: LoseInfo(
-          hangmanControl: GameDialogView.controller,
           withAns: true,
         ),
         actions: [
@@ -72,7 +70,7 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              GameDialogView.controller.shuffle();
+              Get.find<GamePageController>().shuffle();
               Get.close(2);
               node.unfocus();
             },
@@ -84,54 +82,36 @@ class GameDialogView {
 
   static void showWinDialog(BuildContext context, FocusNode node) {
     showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              title: Text('😃 You Win!'),
-              content: WinInfo(
-                hangmanControl: GameDialogView.controller,
-              ),
-              actions: <Widget>[
-                TextButton(
-                  child: Text(
-                    'Close!',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  onPressed: () {
-                    Get.back();
-                    GameDialogView.controller.shuffle();
-                    node.unfocus();
-                  },
-                )
-              ],
-            ));
-  }
-}
-
-class PlayInfo extends StatelessWidget {
-  const PlayInfo({
-    Key key,
-    @required this.hangmanControl,
-  }) : super(key: key);
-
-  final GamePageController hangmanControl;
-
-  @override
-  Widget build(BuildContext context) {
-    return GetBuilder<GamePageController>(
-      builder: (c) {
-        return Text(c.gameModel.displayNote);
-      },
+      context: context,
+      builder: (_) => AlertDialog(
+        title: Text('😃 You Win!'),
+        content: WinInfo(),
+        actions: <Widget>[
+          TextButton(
+            child: Text(
+              'Close!',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () {
+              Get.back();
+              Get.find<GamePageController>().shuffle();
+              node.unfocus();
+            },
+          )
+        ],
+      ),
     );
   }
 }
 
-class WinInfo extends StatelessWidget {
-  final GamePageController hangmanControl;
+class PlayInfo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Text(Get.find<GamePageController>().gameModel.displayNote);
+  }
+}
 
-  const WinInfo({
-    Key key,
-    @required this.hangmanControl,
-  }) : super(key: key);
+class WinInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
@@ -146,13 +126,10 @@ class WinInfo extends StatelessWidget {
 }
 
 class LoseInfo extends StatelessWidget {
-  final GamePageController hangmanControl;
   final bool withAns;
   const LoseInfo({
-    Key key,
     this.withAns,
-    @required this.hangmanControl,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     if (!withAns) {
@@ -165,17 +142,14 @@ class LoseInfo extends StatelessWidget {
             fontWeight: FontWeight.bold),
       );
     } else {
-      return GetBuilder<GamePageController>(
-        builder: (c) {
-          return Text(
-            'Sorry, you did not win the game. \nAnswer: ${c.gameModel.word}',
-            style: TextStyle(
-                color: Colors.orangeAccent,
-                fontSize: 20,
-                height: 1.5,
-                fontWeight: FontWeight.bold),
-          );
-        },
+      var c = Get.find<GamePageController>();
+      return Text(
+        'Sorry, you did not win the game. \nAnswer: ${c.gameModel.word}',
+        style: TextStyle(
+            color: Colors.orangeAccent,
+            fontSize: 20,
+            height: 1.5,
+            fontWeight: FontWeight.bold),
       );
     }
   }
