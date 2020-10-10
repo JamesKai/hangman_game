@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
@@ -31,8 +32,8 @@ class GamePageView extends GetView<GamePageController> {
             if (snapshot.connectionState != ConnectionState.done) {
               print('loading data');
               return Center(
-                child: CircularProgressIndicator(
-                  value: 1,
+                child: CupertinoActivityIndicator(
+                  radius: 4,
                 ),
               );
             }

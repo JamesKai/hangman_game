@@ -9,6 +9,7 @@ void main() {
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.pages,
       theme: ThemeData.dark(),
+      defaultTransition: Transition.cupertino,
     ),
   );
 }

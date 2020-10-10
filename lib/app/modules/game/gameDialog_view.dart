@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
@@ -9,7 +10,7 @@ class GameDialogView {
   static void showLoseDialog(BuildContext context, FocusNode node) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => CupertinoAlertDialog(
         title: Text(
           '😢 You Lose',
           style: TextStyle(color: Colors.white),
@@ -35,6 +36,7 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
+              Get.back();
               GameDialogView.showLoseDialogWithAns(context, node);
               node.unfocus();
             },
@@ -58,7 +60,7 @@ class GameDialogView {
   static void showLoseDialogWithAns(BuildContext context, FocusNode node) {
     showDialog(
       context: context,
-      builder: (context) => AlertDialog(
+      builder: (context) => CupertinoAlertDialog(
         title: Text('😢 You Lose'),
         content: LoseInfo(
           withAns: true,
@@ -71,7 +73,7 @@ class GameDialogView {
             ),
             onPressed: () {
               Get.find<GamePageController>().shuffle();
-              Get.close(2);
+              Get.close(1);
               node.unfocus();
             },
           ),
@@ -83,7 +85,7 @@ class GameDialogView {
   static void showWinDialog(BuildContext context, FocusNode node) {
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
+      builder: (_) => CupertinoAlertDialog(
         title: Text('😃 You Win!'),
         content: WinInfo(),
         actions: <Widget>[

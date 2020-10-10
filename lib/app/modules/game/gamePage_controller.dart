@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hangman_rebuild/app/modules/game/game_model.dart';
+import 'package:hangman_rebuild/app/modules/game/gamePage_model.dart';
 
 int kHangmanQuota = 1;
 

@@ -9,8 +9,8 @@ class GameModel {
   int incorrectCount;
   var wordRepre;
   var displayNote = 'Go ahead';
-  bool doTryAgain;
-  var input;
+  bool doTryAgain = false;
+  var input = '';
   var maxAttempCount;
 
   bool isWin() => word == wordRepre;
