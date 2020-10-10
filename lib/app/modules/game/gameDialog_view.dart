@@ -26,7 +26,6 @@ class GameDialogView {
             ),
             onPressed: () {
               GameDialogView.controller.playAgain();
-
               Get.back();
               node.requestFocus();
             },
@@ -47,7 +46,6 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              GameDialogView.controller.clearUp();
               GameDialogView.controller.shuffle();
               Get.back();
               node.unfocus();
