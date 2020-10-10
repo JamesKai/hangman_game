@@ -9,9 +9,9 @@ import 'gameDialog_view.dart';
 class GamePageView extends GetView<GamePageController> {
   final FocusNode _charFocus = FocusNode();
   final String defalutFileName = 'assets/words.txt';
-  TextEditingController myTextController;
   @override
   Widget build(BuildContext context) {
+    TextEditingController myTextController;
     return Scaffold(
       appBar: AppBar(
         title: Text('Hangman Game'),
