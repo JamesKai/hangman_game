@@ -104,13 +104,6 @@ class GameDialogView {
   }
 }
 
-class PlayInfo extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Text(Get.find<GamePageController>().gameModel.displayNote);
-  }
-}
-
 class WinInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

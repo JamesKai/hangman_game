@@ -1,16 +1,17 @@
 import 'dart:math';
 
 class GameModel {
+  // wordSets should be instantiated before any operating functions is called
   Set<String> wordSets;
   Set<String> inputSet;
   String word;
   int correctCount;
   int incorrectCount;
-  var wordRepre = ' ';
+  var wordRepre;
   var displayNote = 'Go ahead';
   bool doTryAgain;
-  var input = '';
-  var maxAttempCount = 5;
+  var input;
+  var maxAttempCount;
 
   bool isWin() => word == wordRepre;
 
@@ -62,7 +63,6 @@ class GameModel {
       inputSet.add(input);
       correctCount++;
       displayNote = 'Correct, incorrect input times: $incorrectCount';
-
       wordRepre = List<String>.generate(
           word.length,
           (index) =>

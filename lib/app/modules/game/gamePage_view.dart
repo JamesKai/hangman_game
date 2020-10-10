@@ -19,6 +19,7 @@ class GamePageView extends GetView<GamePageController> {
     // controllers, explicitly declare two controller here seem better.
     GamePageController controller = Get.find<GamePageController>();
     MyTextController myTextController = Get.find<MyTextController>();
+
     return Scaffold(
       appBar: AppBar(
         title: Text('Hangman Game'),
@@ -50,66 +51,57 @@ class GamePageView extends GetView<GamePageController> {
             myTextController.text = controller.gameModel.input;
             myTextController.selection = TextSelection.fromPosition(
                 TextPosition(offset: myTextController.text.length));
+
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Padding(
-                      padding: const EdgeInsets.all(10.0),
-                      child: GetBuilder<GamePageController>(
-                        builder: (c) {
-                          return CharacterList(
-                              wordRepre: c.gameModel.wordRepre);
-                        },
-                      )),
+                    padding: const EdgeInsets.all(10.0),
+                    child: GetBuilder<GamePageController>(
+                      builder: (c) {
+                        return CharacterList(wordRepre: c.gameModel.wordRepre);
+                      },
+                    ),
+                  ),
                   Padding(
-                      padding: const EdgeInsets.only(left: 100.0, right: 100),
-                      child: GetBuilder<GamePageController>(
-                        builder: (c) {
-                          return TextField(
-                            // key: inputFieldKey,
-                            focusNode: _charFocus,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 30),
-                            maxLength: 1,
-                            controller: myTextController,
-                            onChanged: (value) {
-                              c.gameModel.input = value;
-                            },
-                            textInputAction: TextInputAction.done,
-                            onSubmitted: (value) {
-                              c.setWordRepre(c.gameModel.input);
-                              myTextController.clear();
-                              if (c.gameModel.isWin()) {
-                                GameDialogView.showWinDialog(
-                                    context, _charFocus);
-                              } else if (c.gameModel.isLose()) {
-                                GameDialogView.showLoseDialog(
-                                    context, _charFocus);
-                              } else {
-                                _charFocus.requestFocus();
-                              }
-                            },
-                          );
-                        },
-                      )),
-                  GetBuilder<GamePageController>(
-                    builder: (c) {
-                      return FlatButton(
-                          color: Colors.teal[300],
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(20)),
-                          child: Text('Confirm'),
-                          onPressed: () {
-                            controller.setWordRepre(c.gameModel.input);
-                            myTextController.clear();
-                            if (c.gameModel.isWin()) {
-                              GameDialogView.showWinDialog(context, _charFocus);
-                            } else if (c.gameModel.isLose()) {
-                              GameDialogView.showLoseDialog(
-                                  context, _charFocus);
-                            }
-                          });
+                    padding: const EdgeInsets.only(left: 100.0, right: 100),
+                    child: TextField(
+                      focusNode: _charFocus,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 30),
+                      maxLength: 1,
+                      controller: myTextController,
+                      onChanged: (value) {
+                        controller.gameModel.input = value;
+                      },
+                      textInputAction: TextInputAction.done,
+                      onSubmitted: (value) {
+                        controller.setWordRepre(controller.gameModel.input);
+                        myTextController.clear();
+                        if (controller.gameModel.isWin()) {
+                          GameDialogView.showWinDialog(context, _charFocus);
+                        } else if (controller.gameModel.isLose()) {
+                          GameDialogView.showLoseDialog(context, _charFocus);
+                        } else {
+                          _charFocus.requestFocus();
+                        }
+                      },
+                    ),
+                  ),
+                  FlatButton(
+                    color: Colors.teal[300],
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20)),
+                    child: Text('Confirm'),
+                    onPressed: () {
+                      controller.setWordRepre(controller.gameModel.input);
+                      myTextController.clear();
+                      if (controller.gameModel.isWin()) {
+                        GameDialogView.showWinDialog(context, _charFocus);
+                      } else if (controller.gameModel.isLose()) {
+                        GameDialogView.showLoseDialog(context, _charFocus);
+                      }
                     },
                   ),
                   Padding(
@@ -127,27 +119,32 @@ class GamePageView extends GetView<GamePageController> {
                     padding: const EdgeInsets.all(8.0),
                     child: Card(
                       child: Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: GetBuilder<GamePageController>(
-                            builder: (c) {
-                              return PlayInfo();
-                            },
-                          )),
+                        padding: const EdgeInsets.all(8.0),
+                        child: PlayInfo(),
+                      ),
                     ),
                   ),
-                  GetBuilder<GamePageController>(
-                    builder: (c) {
-                      return TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: Text('Go Back'));
+                  TextButton(
+                    onPressed: () {
+                      Get.back();
                     },
+                    child: Text('Go Back'),
                   )
                 ],
               ),
             );
           }),
+    );
+  }
+}
+
+class PlayInfo extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<GamePageController>(
+      builder: (c) {
+        return Text(c.gameModel.displayNote);
+      },
     );
   }
 }

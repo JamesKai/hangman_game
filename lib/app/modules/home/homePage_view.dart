@@ -29,7 +29,7 @@ class HomePageView extends GetView<HomePageController> {
               children: List<Text>.generate(
                 3,
                 (index) => Text(
-                  ['Easy', 'Midium', 'Hard'][index],
+                  ['Easy', 'Medium', 'Hard'][index],
                   style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                 ),
               )
