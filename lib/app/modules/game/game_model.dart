@@ -10,10 +10,11 @@ class GameModel {
   var displayNote = 'Go ahead';
   bool doTryAgain;
   var input = '';
+  var maxAttempCount = 5;
 
   bool isWin() => word == wordRepre;
 
-  bool isLose() => incorrectCount >= 3;
+  bool isLose() => incorrectCount >= maxAttempCount;
 
   int get totalPlay => correctCount + incorrectCount;
 
@@ -33,7 +34,6 @@ class GameModel {
 
   void playAgain() {
     resetState();
-
     wordRepre = ' ' * word.length;
   }
 
@@ -44,6 +44,9 @@ class GameModel {
     doTryAgain = false;
     displayNote = 'Go ahead';
     wordRepre = ' ';
+    print('state is resetted' +
+        ' wordRepre = $wordRepre' +
+        ' current word = $word');
   }
 
   void setWordRepre(String input) {
@@ -55,11 +58,11 @@ class GameModel {
     if (!word.contains(input)) {
       inputSet.add(input);
       incorrectCount++;
-      displayNote = 'Incorrect, total input times: $totalPlay';
+      displayNote = 'Incorrect, incorrect input times: $incorrectCount';
     } else if (!this.wordRepre.contains(input)) {
       inputSet.add(input);
       correctCount++;
-      displayNote = 'Correct, total input times: $totalPlay';
+      displayNote = 'Correct, incorrect input times: $incorrectCount';
 
       wordRepre = List<String>.generate(
           word.length,

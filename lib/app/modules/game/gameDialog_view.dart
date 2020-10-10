@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hangman_rebuild/app/modules/home/gamePage_controller.dart';
+import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
 
 class GameDialogView {
-  static GamePageController controller = Get.find();
+  // remember to specify the controller type for the Get.find<[Type]> if there's
+  // multiple controller in the bindings
+  static GamePageController controller = Get.find<GamePageController>();
   static void showLoseDialog(BuildContext context, FocusNode node) {
     showDialog(
       context: context,
@@ -23,8 +25,9 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              Get.back();
               GameDialogView.controller.playAgain();
+
+              Get.back();
               node.requestFocus();
             },
           ),
@@ -44,9 +47,10 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              node.unfocus();
-              Get.back();
+              GameDialogView.controller.clearUp();
               GameDialogView.controller.shuffle();
+              Get.back();
+              node.unfocus();
             },
           ),
         ],
@@ -70,8 +74,8 @@ class GameDialogView {
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () {
-              Get.close(2);
               GameDialogView.controller.shuffle();
+              Get.close(2);
               node.unfocus();
             },
           ),
@@ -115,7 +119,11 @@ class PlayInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(hangmanControl.gameModel.displayNote);
+    return GetBuilder<GamePageController>(
+      builder: (c) {
+        return Text(c.gameModel.displayNote);
+      },
+    );
   }
 }
 
@@ -159,13 +167,17 @@ class LoseInfo extends StatelessWidget {
             fontWeight: FontWeight.bold),
       );
     } else {
-      return Text(
-        'Sorry, you did not win the game. \nAnswer: ${hangmanControl.gameModel.word}',
-        style: TextStyle(
-            color: Colors.orangeAccent,
-            fontSize: 20,
-            height: 1.5,
-            fontWeight: FontWeight.bold),
+      return GetBuilder<GamePageController>(
+        builder: (c) {
+          return Text(
+            'Sorry, you did not win the game. \nAnswer: ${c.gameModel.word}',
+            style: TextStyle(
+                color: Colors.orangeAccent,
+                fontSize: 20,
+                height: 1.5,
+                fontWeight: FontWeight.bold),
+          );
+        },
       );
     }
   }

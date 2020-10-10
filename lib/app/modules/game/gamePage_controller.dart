@@ -1,9 +1,12 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
+import 'package:hangman_rebuild/app/modules/game/game_model.dart';
 
 int kHangmanQuota = 1;
 
 class GamePageController extends GetxController {
-  var gameModel;
+  GameModel gameModel;
 
   void shuffle() {
     gameModel.shuffle();
@@ -19,4 +22,11 @@ class GamePageController extends GetxController {
     gameModel.playAgain();
     update();
   }
+
+  void clearUp() {
+    gameModel.resetState();
+    update();
+  }
 }
+
+class MyTextController extends TextEditingController {}

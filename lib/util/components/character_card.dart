@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
 
 /// Create single character card widget
 ///
@@ -31,11 +33,16 @@ class CharacterCard extends StatelessWidget {
 class CharacterList extends StatelessWidget {
   final String wordRepre;
   CharacterList({@required this.wordRepre});
-  List<CharacterCard> get charLst {
+  List<Widget> get charLst {
     return [
       for (int i = 0; i < wordRepre.length; i++)
-        CharacterCard(
-          char: wordRepre[i],
+        GetBuilder<GamePageController>(
+          init: GamePageController(),
+          builder: (c) {
+            return CharacterCard(
+              char: c.gameModel.wordRepre[i],
+            );
+          },
         )
     ];
   }
