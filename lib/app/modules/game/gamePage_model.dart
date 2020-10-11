@@ -53,8 +53,10 @@ class GameModel {
     displayNote = input == ''
         ? 'Input something'
         : hasInputBefore(input)
-            ? 'You have input this before'
+            ? 'You have input this before, ${maxAttempCount - incorrectCount} chance left'
             : displayNote;
+
+    if (hasInputBefore(input)) return;
     if (!word.contains(input)) {
       inputSet.add(input);
       incorrectCount++;

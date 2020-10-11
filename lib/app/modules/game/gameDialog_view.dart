@@ -20,9 +20,12 @@ class GameDialogView {
         ),
         actions: [
           TextButton(
-            child: Text(
-              'Try Again',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(12.5),
+              child: Text(
+                'Try Again',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             onPressed: () {
               Get.find<GamePageController>().playAgain();
@@ -31,9 +34,12 @@ class GameDialogView {
             },
           ),
           TextButton(
-            child: Text(
-              'Reveal Answer',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(12.5),
+              child: Text(
+                'Reveal Answer',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             onPressed: () {
               Get.back();
@@ -42,9 +48,12 @@ class GameDialogView {
             },
           ),
           TextButton(
-            child: Text(
-              'Close',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(12.5),
+              child: Text(
+                'Close',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             onPressed: () {
               Get.find<GamePageController>().shuffle();
@@ -67,9 +76,12 @@ class GameDialogView {
         ),
         actions: [
           TextButton(
-            child: Text(
-              'Close',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(12.5),
+              child: Text(
+                'Close',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             onPressed: () {
               Get.find<GamePageController>().shuffle();
@@ -90,9 +102,12 @@ class GameDialogView {
         content: WinInfo(),
         actions: <Widget>[
           TextButton(
-            child: Text(
-              'Close!',
-              style: TextStyle(color: Colors.white),
+            child: Padding(
+              padding: const EdgeInsets.all(12.5),
+              child: Text(
+                'Close!',
+                style: TextStyle(color: Colors.white),
+              ),
             ),
             onPressed: () {
               Get.back();
@@ -109,13 +124,16 @@ class GameDialogView {
 class WinInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Text(
-      'Congrats, you are superb!',
-      style: TextStyle(
-          color: Colors.orangeAccent,
-          fontSize: 20,
-          height: 1.5,
-          fontWeight: FontWeight.bold),
+    return Padding(
+      padding: const EdgeInsets.only(top: 14.0),
+      child: Text(
+        'Congrats, you are superb!',
+        style: TextStyle(
+            color: Colors.orangeAccent,
+            fontSize: 20,
+            height: 1.5,
+            fontWeight: FontWeight.bold),
+      ),
     );
   }
 }
@@ -128,23 +146,29 @@ class LoseInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (!withAns) {
-      return Text(
-        'Sorry, you did not win the game. \n  ',
-        style: TextStyle(
-            color: Colors.orangeAccent,
-            fontSize: 20,
-            height: 1.5,
-            fontWeight: FontWeight.bold),
+      return Padding(
+        padding: const EdgeInsets.only(top: 14.0),
+        child: Text(
+          'Sorry, you did not win the game.',
+          style: TextStyle(
+              color: Colors.orangeAccent,
+              fontSize: 20,
+              height: 1.5,
+              fontWeight: FontWeight.bold),
+        ),
       );
     } else {
       var c = Get.find<GamePageController>();
-      return Text(
-        '${c.gameModel.word}',
-        style: TextStyle(
-            color: Colors.orangeAccent,
-            fontSize: 20,
-            height: 1.5,
-            fontWeight: FontWeight.bold),
+      return Padding(
+        padding: const EdgeInsets.only(top: 14.0),
+        child: Text(
+          '${c.gameModel.word}',
+          style: TextStyle(
+              color: Colors.orangeAccent,
+              fontSize: 20,
+              height: 1.5,
+              fontWeight: FontWeight.bold),
+        ),
       );
     }
   }
