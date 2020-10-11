@@ -61,7 +61,7 @@ class GameDialogView {
     showDialog(
       context: context,
       builder: (context) => CupertinoAlertDialog(
-        title: Text('😢 You Lose'),
+        title: Text('Answer'),
         content: LoseInfo(
           withAns: true,
         ),
@@ -139,7 +139,7 @@ class LoseInfo extends StatelessWidget {
     } else {
       var c = Get.find<GamePageController>();
       return Text(
-        'Sorry, you did not win the game. \nAnswer: ${c.gameModel.word}',
+        '${c.gameModel.word}',
         style: TextStyle(
             color: Colors.orangeAccent,
             fontSize: 20,

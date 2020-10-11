@@ -15,7 +15,7 @@ class GameModel {
 
   bool isWin() => word == wordRepre;
 
-  bool isLose() => incorrectCount >= maxAttempCount;
+  bool isLose() => incorrectCount > maxAttempCount;
 
   int get totalPlay => correctCount + incorrectCount;
 
@@ -58,11 +58,13 @@ class GameModel {
     if (!word.contains(input)) {
       inputSet.add(input);
       incorrectCount++;
-      displayNote = 'Incorrect, incorrect input times: $incorrectCount';
+      displayNote = isLose()
+          ? 'You lose'
+          : 'Incorrect, ${maxAttempCount - incorrectCount} chance left';
     } else if (!this.wordRepre.contains(input)) {
       inputSet.add(input);
       correctCount++;
-      displayNote = 'Correct, incorrect input times: $incorrectCount';
+      displayNote = 'Correct, ${maxAttempCount - incorrectCount} chance left';
       wordRepre = List<String>.generate(
           word.length,
           (index) =>
