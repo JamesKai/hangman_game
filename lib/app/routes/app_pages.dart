@@ -10,9 +10,10 @@ class AppPages {
 
   static final pages = [
     GetPage(
-        name: Routes.HOME_ROUTE,
-        page: () => HomePageView(),
-        binding: HomePageBinding()),
+      name: Routes.HOME_ROUTE,
+      page: () => HomePageView(),
+      binding: HomePageBinding(),
+    ),
     GetPage(
       name: Routes.GAME_ROUTE,
       page: () => GamePageView(),

@@ -18,8 +18,8 @@ class GamePageView extends GetView<GamePageController> {
   Widget build(BuildContext context) {
     // if only has one controller, it is unecessary to explicit "find" GetX controller here; however, since we have two
     // controllers, explicitly declare two controller here seem better.
-    GamePageController controller = Get.find<GamePageController>();
-    MyTextController myTextController = Get.find<MyTextController>();
+    final GamePageController controller = Get.find<GamePageController>();
+    final MyTextController myTextController = Get.find<MyTextController>();
 
     return Scaffold(
       appBar: AppBar(
