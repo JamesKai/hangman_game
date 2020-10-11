@@ -12,7 +12,7 @@ class GamePageView extends GetView<GamePageController> {
   final String defalutFileName = 'assets/words.txt';
   final mode;
 
-  GamePageView({this.mode = 'Midium'});
+  GamePageView({this.mode = 'Medium'});
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +45,7 @@ class GamePageView extends GetView<GamePageController> {
             controller.gameModel.shuffle();
             controller.gameModel.maxAttempCount = mode == 'Hard'
                 ? 3
-                : mode == 'Midium'
+                : mode == 'Medium'
                     ? 5
                     : 7;
             // setting up text controller
