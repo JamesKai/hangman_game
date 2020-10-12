@@ -18,6 +18,16 @@ class GamePageController extends GetxController {
     super.onInit();
   }
 
+  @override
+  void onClose() {
+    textController.dispose();
+    print('TextEditingController is disposed');
+    print('GamePageController is closed');
+    super.onClose();
+  }
+}
+
+extension MyGameController on GamePageController {
   void shuffle() {
     gameModel.shuffle();
     update();
@@ -37,12 +47,6 @@ class GamePageController extends GetxController {
     gameModel.resetState();
     update();
   }
-
-  @override
-  void onClose() {
-    textController.dispose();
-    print('TextEditingController is disposed');
-    print('GamePageController is closed');
-    super.onClose();
-  }
 }
+
+extension MyTextEditingController on GamePageController {}
