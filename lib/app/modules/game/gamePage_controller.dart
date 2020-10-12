@@ -6,12 +6,15 @@ int kHangmanQuota = 1;
 
 class GamePageController extends GetxController {
   GameModel gameModel;
+  TextEditingController textController;
 
   @override
   onInit() {
-    print('controller is open');
+    print('GamePageController is open');
     gameModel = GameModel();
     print('Model initialized');
+    textController = TextEditingController();
+    print('TextEditingController initialized');
     super.onInit();
   }
 
@@ -37,9 +40,9 @@ class GamePageController extends GetxController {
 
   @override
   void onClose() {
-    print('controller is closed');
+    textController.dispose();
+    print('TextEditingController is disposed');
+    print('GamePageController is closed');
     super.onClose();
   }
 }
-
-class MyTextController extends TextEditingController {}

@@ -7,6 +7,5 @@ class GamePageBinding extends Bindings {
     Get.lazyPut<GamePageController>(
       () => GamePageController(),
     );
-    Get.lazyPut<MyTextController>(() => MyTextController());
   }
 }

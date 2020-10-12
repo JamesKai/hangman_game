@@ -19,7 +19,6 @@ class GamePageView extends GetView<GamePageController> {
     // if only has one controller, it is unecessary to explicit "find" GetX controller here; however, since we have two
     // controllers, explicitly declare two controller here seem better.
     final GamePageController controller = Get.find<GamePageController>();
-    final MyTextController myTextController = Get.find<MyTextController>();
 
     return Scaffold(
       appBar: AppBar(
@@ -42,16 +41,16 @@ class GamePageView extends GetView<GamePageController> {
             // after retreiving data -> initialize controller's GameModel instance and set its wordSets property to the data
 
             controller.gameModel.wordSets = snapshot.data;
-            controller.gameModel.shuffle();
+            controller.shuffle();
             controller.gameModel.maxAttempCount = mode == 'Hard'
                 ? 3
                 : mode == 'Medium'
                     ? 5
                     : 7;
             // setting up text controller
-            myTextController.text = controller.gameModel.input;
-            myTextController.selection = TextSelection.fromPosition(
-                TextPosition(offset: myTextController.text.length));
+            controller.textController.text = controller.gameModel.input;
+            controller.textController.selection = TextSelection.fromPosition(
+                TextPosition(offset: controller.textController.text.length));
 
             return Center(
               child: Column(
@@ -72,14 +71,14 @@ class GamePageView extends GetView<GamePageController> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 30),
                       maxLength: 1,
-                      controller: myTextController,
+                      controller: controller.textController,
                       onChanged: (value) {
                         controller.gameModel.input = value;
                       },
                       textInputAction: TextInputAction.done,
                       onSubmitted: (value) {
                         controller.setWordRepre(controller.gameModel.input);
-                        myTextController.clear();
+                        controller.textController.clear();
                         if (controller.gameModel.isWin()) {
                           GameDialogView.showWinDialog(context, _charFocus);
                         } else if (controller.gameModel.isLose()) {
@@ -97,7 +96,7 @@ class GamePageView extends GetView<GamePageController> {
                     child: Text('Confirm'),
                     onPressed: () {
                       controller.setWordRepre(controller.gameModel.input);
-                      myTextController.clear();
+                      controller.textController.clear();
                       if (controller.gameModel.isWin()) {
                         GameDialogView.showWinDialog(context, _charFocus);
                       } else if (controller.gameModel.isLose()) {
