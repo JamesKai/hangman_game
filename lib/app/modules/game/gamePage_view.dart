@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_controller.dart';
+import 'package:hangman_rebuild/app/modules/result_page/result_page_view.dart';
 
 import 'package:hangman_rebuild/util/components/character_card.dart';
 import 'package:hangman_rebuild/util/services/file_manager.dart';
@@ -126,9 +127,9 @@ class GamePageView extends GetView<GamePageController> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Get.back();
+                      Get.to(ResultPageView());
                     },
-                    child: Text('Go Back'),
+                    child: Text('See results'),
                   )
                 ],
               ),
