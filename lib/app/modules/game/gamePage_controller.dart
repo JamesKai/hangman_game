@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_model.dart';
+import 'package:hive/hive.dart';
 
 int kHangmanQuota = 1;
 
 class GamePageController extends GetxController {
   GameModel gameModel;
   TextEditingController textController;
+  // List<String> myGameResults = [];
+  Box<String> resultBox;
 
   @override
   onInit() {
@@ -15,6 +18,7 @@ class GamePageController extends GetxController {
     print('Model initialized');
     textController = TextEditingController();
     print('TextEditingController initialized');
+    resultBox = Hive.box('resultBox');
     super.onInit();
   }
 
@@ -30,6 +34,7 @@ class GamePageController extends GetxController {
 extension MyGameController on GamePageController {
   void shuffle() {
     gameModel.shuffle();
+    addResult(gameModel.word);
     update();
   }
 
@@ -49,4 +54,11 @@ extension MyGameController on GamePageController {
   }
 }
 
-extension MyTextEditingController on GamePageController {}
+extension MyGameResultController on GamePageController {
+  void addResult(String result) {
+    // myGameResults.add(result);
+    resultBox.add(result);
+
+    // update();
+  }
+}
