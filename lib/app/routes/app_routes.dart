@@ -4,4 +4,5 @@ part of 'app_pages.dart';
 abstract class Routes {
   static const HOME_ROUTE = '/home';
   static const GAME_ROUTE = '/game';
+  static const RESULT_PAGE = '/result';
 }

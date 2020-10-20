@@ -1,3 +1,5 @@
+import 'package:hangman_rebuild/app/modules/result_page/result_page_view.dart';
+import 'package:hangman_rebuild/app/modules/result_page/result_page_binding.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_view.dart';
 import 'package:hangman_rebuild/app/modules/game/gamePage_binding.dart';
 import 'package:get/get.dart';
@@ -18,6 +20,11 @@ class AppPages {
       name: Routes.GAME_ROUTE,
       page: () => GamePageView(),
       binding: GamePageBinding(),
+    ),
+    GetPage(
+      name: Routes.RESULT_PAGE, 
+      page:()=> ResultPageView(), 
+      binding: ResultPageBinding(),
     ),
   ];
 }
